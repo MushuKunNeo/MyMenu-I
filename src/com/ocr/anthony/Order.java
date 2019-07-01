@@ -81,6 +81,23 @@ public class Order {
         }
     }
 
+    }
+
+    public void displaySelectedDrink(int No_Drink) {
+        switch (No_Drink){
+            case 1:
+                System.out.println("Vous avez choisi une eau plate !");
+                break;
+            case 2:
+                System.out.println("Vous avez choisi une eau gazeuse !");
+                break;
+            case 3:
+                System.out.println("Vous avez choisi un breizh cola !");
+                break;
+            default:
+                System.out.println("Vous n'avez pas choisi de boisson !");
+                break;
+        }
 
     }
 }

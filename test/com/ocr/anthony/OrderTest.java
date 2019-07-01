@@ -121,4 +121,28 @@ public class OrderTest {
         String output = outContent.toString().replace("\r\n", "\n");
         assertEquals("Vous n'avez pas choisi d'accompagnement parmi les choix proposés\n", output);
     }
+
+    @Test
+    public void Given_Water_When_DisplayDrinkSelected_Then_DisplayWaterSentence() {
+        order.displaySelectedDrink(1);
+        assertEquals("Vous avez choisi une eau plate !\n", outContent.toString().replace("\r\n", "\n"));
+    }
+
+    @Test
+    public void Given_SparklingWater_When_DisplayDrinkSelected_Then_DisplaySparklingWaterSentence() {
+        order.displaySelectedDrink(2);
+        assertEquals("Vous avez choisi une eau gazeuse !\n", outContent.toString().replace("\r\n", "\n"));
+    }
+
+    @Test
+    public void Given_Soda_When_DisplayDrinkSelected_Then_DisplaySodaSentence() {
+        order.displaySelectedDrink(3);
+        assertEquals("Vous avez choisi un breizh cola !\n", outContent.toString().replace("\r\n", "\n"));
+    }
+
+    @Test
+    public void Given_BadValue_When_DisplayDrinkSelected_Then_DisplayErrorSentence() {
+        order.displaySelectedDrink(5);
+        assertEquals("Vous n'avez pas choisi de boisson !\n", outContent.toString().replace("\r\n", "\n"));
+    }
 }
