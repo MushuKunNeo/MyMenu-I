@@ -4,43 +4,56 @@ import java.util.Scanner;
 
 public class Order {
 
+    Scanner sc = new Scanner(System.in);
+
     /** Run Asking process for a Menu */
     public void runMenu() {
         this.displayAvailableMenu();
-        Scanner sc = new Scanner(System.in);
-        int NO_Menu = sc.nextInt();
-        this.displaySelectedMenu(NO_Menu);
-
-        switch (NO_Menu) {
-            case 1:
-                displayAvailableSide(true);
-                int nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, true);
-                displayAvailableDrink();
-                int nbDrink = sc.nextInt();
-                displaySelectedDrink(nbDrink);
-                break;
-            case 2:
-                displayAvailableSide(true);
-                nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, true);
-                break;
-            case 3:
-                displayAvailableSide(false);
-                nbSide = sc.nextInt();
-                displaySelectedSide(nbSide, false);
-                displayAvailableDrink();
-                nbDrink = sc.nextInt();
-                displaySelectedDrink(nbDrink);
-                break;
-        }
+        int NO_Menu;
+        do {
+            NO_Menu = sc.nextInt();
+            this.displaySelectedMenu(NO_Menu);
+            switch (NO_Menu) {
+                case 1:
+                    displayAvailableSide(true);
+                    int nbSide;
+                    do {
+                        nbSide = sc.nextInt();
+                        displaySelectedSide(nbSide, true);
+                    } while (nbSide  <1 || nbSide > 3);
+                        displayAvailableDrink();
+                        int nbDrink;
+                    do{
+                        nbDrink = sc.nextInt();
+                        displaySelectedDrink(nbDrink);
+                    } while (nbDrink  < 1 || nbDrink > 3);
+                    break;
+                case 2:
+                    displayAvailableSide(true);
+                    do {
+                        nbSide = sc.nextInt();
+                        displaySelectedSide(nbSide, true);
+                    } while (nbSide < 1 || nbSide > 3);
+                    break;
+                case 3:
+                    displayAvailableSide(false);
+                    do{
+                        nbSide = sc.nextInt();
+                        displaySelectedSide(nbSide, false);
+                    } while (nbSide < 1 || nbSide > 2);
+                    displayAvailableDrink();
+                    do {
+                        nbDrink = sc.nextInt();
+                        displaySelectedDrink(nbDrink);
+                    }while (nbDrink  < 1 || nbDrink > 3);
+                    break;
+            }
+        } while(NO_Menu < 1 || NO_Menu > 3);
         /**
         Scanner Side_Scan = new Scanner(System.in);
         int No_Side = sc.nextInt();
         this.displaySelectedSide(); */
     }
-
-
 
     /**
      * Display all available menus in the restaurant.
@@ -156,5 +169,20 @@ public class Order {
                 break;
         }
 
+    }
+
+    public void runMenus() {
+        System.out.println("Combien souhaitez vous commander de menu ?");
+        int menuQuantity = sc.nextInt();
+
+        for(int i = 0 ; i < menuQuantity; i++){
+            runMenu();
+        }
+//        int counter = 0;
+
+/*        while (counter < menuQuantity) {
+            runMenu();
+            counter = counter + 1;
+        }*/
     }
 }
