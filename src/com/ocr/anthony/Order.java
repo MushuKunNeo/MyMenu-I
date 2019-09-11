@@ -4,51 +4,30 @@ import java.util.Scanner;
 
 public class Order {
 
-    Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
+    static String orderSummary = "";
 
     /** Run Asking process for a Menu */
     public void runMenu() {
-        this.displayAvailableMenu();
-        int NO_Menu;
-        do {
-            NO_Menu = sc.nextInt();
-            this.displaySelectedMenu(NO_Menu);
+        //this.displayAvailableMenu();
+        int NO_Menu = askMenu();
+        //do {
+            //NO_Menu = sc.nextInt();
+            //this.displaySelectedMenu(NO_Menu);
             switch (NO_Menu) {
                 case 1:
-                    displayAvailableSide(true);
-                    int nbSide;
-                    do {
-                        nbSide = sc.nextInt();
-                        displaySelectedSide(nbSide, true);
-                    } while (nbSide  <1 || nbSide > 3);
-                        displayAvailableDrink();
-                        int nbDrink;
-                    do{
-                        nbDrink = sc.nextInt();
-                        displaySelectedDrink(nbDrink);
-                    } while (nbDrink  < 1 || nbDrink > 3);
+                    askSide(true);
+                    askDrink();
                     break;
                 case 2:
-                    displayAvailableSide(true);
-                    do {
-                        nbSide = sc.nextInt();
-                        displaySelectedSide(nbSide, true);
-                    } while (nbSide < 1 || nbSide > 3);
+                    askSide(true);
                     break;
                 case 3:
-                    displayAvailableSide(false);
-                    do{
-                        nbSide = sc.nextInt();
-                        displaySelectedSide(nbSide, false);
-                    } while (nbSide < 1 || nbSide > 2);
-                    displayAvailableDrink();
-                    do {
-                        nbDrink = sc.nextInt();
-                        displaySelectedDrink(nbDrink);
-                    }while (nbDrink  < 1 || nbDrink > 3);
+                    askSide(false);
+                    askDrink();
                     break;
             }
-        } while(NO_Menu < 1 || NO_Menu > 3);
+        //} while(NO_Menu < 1 || NO_Menu > 3);
         /**
         Scanner Side_Scan = new Scanner(System.in);
         int No_Side = sc.nextInt();
@@ -171,18 +150,58 @@ public class Order {
 
     }
 
+    /**
+     * Run asking process for several menus.
+     */
     public void runMenus() {
         System.out.println("Combien souhaitez vous commander de menu ?");
         int menuQuantity = sc.nextInt();
-
-        for(int i = 0 ; i < menuQuantity; i++){
+        orderSummary = "Résumé de votre commande :%n";
+        for (int i = 0; i < menuQuantity; i++) {
+            orderSummary += "Menu " + (i + 1) + ":%n";
             runMenu();
         }
+        System.out.println("");
+        System.out.println(String.format(orderSummary));
+    }
 //        int counter = 0;
 
 /*        while (counter < menuQuantity) {
             runMenu();
             counter = counter + 1;
         }*/
+
+
+
+    /**
+     * Display a question about menu in the standard input, get response and display it
+     * @return
+     */
+    public int askMenu() {
+        String[] menus = {"poulet", "boeuf", "végétarien"};
+        //int Nb_Menu = Interaction.askSomething("menu", menus);
+        return Interaction.askSomething("menu", menus);
+    }
+
+    /**
+     * Display a question about side in the standard input, get response and display it
+     */
+    public void askSide(boolean allSidesEnable) {
+        if (allSidesEnable) {
+            String[] responsesAllSide = {"légumes frais", "frites", "riz"};
+            Interaction.askSomething("accompagnement", responsesAllSide);
+        } else {
+            String[] responsesOnlyRice = {"riz", "pas de riz"};
+            Interaction.askSomething("accompagnement", responsesOnlyRice);
+        }
+    }
+
+    /**
+     * Display a question about drink in the standard input, get response and display it
+     */
+    public void askDrink() {
+        String[] responsesDrink = {"eau plate", "eau gazeuse", "soda"};
+        Interaction.askSomething("boisson", responsesDrink);
     }
 }
+
